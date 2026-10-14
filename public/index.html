@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>انجمن زیست‌شناسی مدرسه</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/components.css">
+</head>
+<body>
+
+<section id="authScreen">
+  <div class="auth-card">
+    <div class="auth-logo">🧬</div>
+    <h1 class="auth-title">انجمن زیست‌شناسی</h1>
+    <p class="auth-sub">مدرسه — پلتفرم فعالیت آنلاین انجمن</p>
+    <div class="tabs">
+      <button type="button" class="tab active" data-tab="login">ورود</button>
+      <button type="button" class="tab" data-tab="register">ثبت‌نام</button>
+    </div>
+    <form id="loginForm">
+      <div id="loginAlert" class="alert alert-err hidden"></div>
+      <div class="field"><label>نام کاربری</label><input type="text" id="loginUser" placeholder="ali_zist" required></div>
+      <div class="field"><label>رمز عبور</label><input type="password" id="loginPass" placeholder="••••••••" required></div>
+      <div class="field"><label>کد عضویت انجمن</label><input type="text" id="loginCode" placeholder="BIO-1403" required>
+        <div class="hint">🔑 کد توسط مربی به شما داده شده است</div></div>
+      <button type="submit" class="btn btn-primary">ورود به انجمن</button>
+    </form>
+    <form id="registerForm" class="hidden">
+      <div id="registerAlert" class="alert alert-err hidden"></div>
+      <div class="role-grid">
+        <button type="button" class="role-card active" data-role="student">
+          <span class="ico">🎓</span><span class="nm">دانش‌آموز</span><span class="ds">دسترسی محدود</span>
+        </button>
+        <button type="button" class="role-card" data-role="coach">
+          <span class="ico">🧑‍🏫</span><span class="nm">مربی</span><span class="ds">دسترسی کامل</span>
+        </button>
+      </div>
+      <div class="field"><label>نام و نام خانوادگی</label><input type="text" id="regName" required></div>
+      <div class="field"><label>نام کاربری (انگلیسی)</label><input type="text" id="regUser" required></div>
+      <div class="field"><label>رمز عبور</label><input type="password" id="regPass" required></div>
+      <div class="field"><label>کد عضویت انجمن</label><input type="text" id="regCode" placeholder="BIO-1403" required></div>
+      <button type="submit" class="btn btn-primary">ثبت‌نام در انجمن</button>
+    </form>
+  </div>
+</section>
+
+<section id="appScreen" class="hidden">
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-ico">🧬</div>
+      <div>انجمن زیست<small>مدرسه</small></div>
+    </div>
+    <nav class="topnav">
+      <button data-nav="notes">📝 یادداشت</button>
+      <button data-nav="contact">📞 تماس با ما</button>
+      <button data-nav="back">↩️ بازگشت</button>
+    </nav>
+    <div class="topbar-spacer"></div>
+    <div class="status-pill"><span class="dot"></span>آنلاین — <span id="onlineCount">۱</span> نفر</div>
+    <div class="hours-chip">🕐 <span id="clock">--:--</span></div>
+    <div class="profile-wrap">
+      <button class="profile-btn" id="profileBtn">
+        <div class="avatar" id="topAvatar">🎓</div>
+        <div class="profile-meta"><b id="topName">کاربر</b><span id="topRole">دانش‌آموز</span></div>
+      </button>
+      <div class="dropdown hidden" id="profileDropdown">
+        <div class="dropdown-head"><b id="dropName">کاربر</b><span id="dropUser">@user</span></div>
+        <button class="dropdown-item" data-act="profile">👤 پروفایل من</button>
+        <button class="dropdown-item" data-act="settings">⚙️ تنظیمات</button>
+        <div class="dropdown-sep"></div>
+        <button class="dropdown-item danger" data-act="logout">🚪 خروج از حساب</button>
+      </div>
+    </div>
+  </header>
+  <div class="body-wrap">
+    <aside class="sidebar">
+      <div class="side-label">اصلی</div>
+      <button class="side-item active" data-view="home"><span class="si">🏠</span> خانه</button>
+      <div class="side-label">فعالیت‌ها</div>
+      <button class="side-item" data-view="exam"><span class="si">🧪</span> آزمایشگاه</button>
+      <button class="side-item" data-view="classroom"><span class="si">🎥</span> کلاس آنلاین</button>
+      <button class="side-item" data-view="chat"><span class="si">💬</span> گفتگوی انجمن</button>
+      <button class="side-item" data-view="gallery"><span class="si">🖼️</span> گالری</button>
+      <div class="side-label">آموزش</div>
+      <button class="side-item" data-view="quiz"><span class="si">❓</span> کویز</button>
+      <button class="side-item" data-view="leaderboard"><span class="si">🏆</span> جدول امتیازات</button>
+      <button class="side-item" data-view="reports"><span class="si">📊</span> داشبورد آماری</button>
+    </aside>
+    <main class="content" id="mainContent"></main>
+  </div>
+</section>
+
+<div id="modalRoot"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="/socket.io/socket.io.js"></script>
+
+<script src="/js/config.js"></script>
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/profile.js"></script>
+<script src="/js/dashboard.js"></script>
+<script src="/js/exam.js"></script>
+<script src="/js/whiteboard.js"></script>
+<script src="/js/classroom.js"></script>
+<script src="/js/chat.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/quiz.js"></script>
+<script src="/js/leaderboard.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
