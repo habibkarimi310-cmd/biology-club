@@ -66,7 +66,7 @@ app.use((err, req, res, next) => {
 attachSocket(io);
 
 const PORT = process.env.PORT || 3000;
-server.listen(PORT, '0.0.0.0', () => {
+server.listen(PORT, '0.0.0.0' , () => {
   console.log(`\n🧬 انجمن زیست‌شناسی مدرسه v2.0\n`);
   console.log(`   ✅ سرور روی پورت ${PORT} فعال شد`);
   console.log(`   🌐 http://localhost:${PORT}`);
